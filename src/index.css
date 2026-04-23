@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "VT323", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Press Start 2P", ui-monospace, SFMono-Regular, monospace;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: var(--font-sans);
+}
+
+.glitch {
+  position: relative;
+  color: #fff;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+}
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #00ffff;
+  clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%);
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 #ff00ff;
+  clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%);
+  animation: glitch-anim2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+  100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
+}
+@keyframes glitch-anim2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(1px, -1px); }
+  20% { clip-path: inset(30% 0 20% 0); transform: translate(-1px, 1px); }
+  40% { clip-path: inset(70% 0 10% 0); transform: translate(1px, 2px); }
+  60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, -2px); }
+  80% { clip-path: inset(50% 0 30% 0); transform: translate(2px, 1px); }
+  100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, -1px); }
+}
+
+.scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0,0,0,0.25) 50%,
+    rgba(0,0,0,0.25)
+  );
+  background-size: 100% 4px;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.snake-cell {
+  border-radius: 0; /* Boxy */
+}
+
+.snake-body { background: #00ffff; box-shadow: 0 0 5px #00ffff; }
+.snake-head { background: #fff; box-shadow: 0 0 8px #00ffff; }
+.snake-food { background: #ff00ff; box-shadow: 0 0 8px #ff00ff; animation: pulse 0.5s infinite }
+
+.static-noise {
+  animation: staticPulse 0.1s infinite;
+}
+
+@keyframes staticPulse {
+  0% { opacity: 0.9; transform: scale(1.002); }
+  50% { opacity: 0.85; transform: scale(0.998); }
+  100% { opacity: 1; transform: scale(1); }
+}
